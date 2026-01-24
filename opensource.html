@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About DrawBlock - Open Source Diagram Generator</title>
+    <meta name="description"
+        content="Learn about DrawBlock, the open source tool for converting text and articles into block diagrams.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { DEFAULT: '#0D6EFD', 50: '#E3F2FF', 100: '#CCE5FF', 200: '#99CCFF', 300: '#66B2FF', 400: '#3399FF', 500: '#0D6EFD', 600: '#0A58CA', 700: '#084298' }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-white antialiased">
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-50 backdrop-blur-sm bg-white/95">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex items-center justify-between">
+                <a href="demo-updated.html" class="flex items-center gap-2 group">
+                    <div
+                        class="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-600 rounded-lg flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105">
+                        <span class="text-white font-bold text-xl">D</span>
+                    </div>
+                    <span class="text-xl font-bold text-gray-900 hidden sm:inline-block">DrawBlock</span>
+                </a>
+                <div class="hidden md:flex items-center gap-8">
+                    <span
+                        class="inline-flex items-center px-3 py-1 rounded-full bg-green-100 text-green-800 text-xs font-semibold border border-green-200">
+                        Open Source
+                    </span>
+                    <a href="#" class="text-gray-600 hover:text-primary font-medium transition-colors">API</a>
+                    <a href="https://github.com/yourusername/drawblock" target="_blank"
+                        class="text-gray-600 hover:text-primary font-medium transition-colors flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill-rule="evenodd"
+                                d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        GitHub
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="space-y-16">
+            <!-- Introduction -->
+            <section class="text-center space-y-6">
+                <span class="inline-block p-3 rounded-full bg-blue-50 text-primary mb-4">
+                    <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                    </svg>
+                </span>
+                <h1 class="text-4xl md:text-5xl font-bold text-gray-900">Open Source Visualization</h1>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    DrawBlock is an open-source initiative designed to democratize scientific and technical
+                    communication through automated diagram generation.
+                </p>
+            </section>
+
+            <!-- Target Audience -->
+            <section class="grid md:grid-cols-3 gap-8">
+                <div class="bg-gray-50 p-8 rounded-xl border border-gray-100">
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">For Writers & Bloggers</h3>
+                    <p class="text-gray-600">
+                        Turn your articles into visual content instantly. Paste your blog URL, and DrawBlock extracts
+                        the key process flows to generate engaging diagrams for your readers.
+                    </p>
+                </div>
+                <div class="bg-gray-50 p-8 rounded-xl border border-gray-100">
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">For Researchers</h3>
+                    <p class="text-gray-600">
+                        Simplify complex methodologies for journals and publications. Convert abstract descriptions into
+                        standard block diagrams suitable for academic papers.
+                    </p>
+                </div>
+                <div class="bg-gray-50 p-8 rounded-xl border border-gray-100">
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">For Presenters</h3>
+                    <p class="text-gray-600">
+                        Create visual aids for your slides in seconds. Just type out your talking points or process
+                        steps, and get a professional graphic ready for your deck.
+                    </p>
+                </div>
+            </section>
+
+            <!-- How It Works -->
+            <section class="space-y-8">
+                <h2 class="text-3xl font-bold text-gray-900 text-center">How It Works</h2>
+                <div class="relative border-l-4 border-primary pl-8 space-y-12 ml-4">
+                    <div class="relative">
+                        <span
+                            class="absolute -left-[42px] top-0 w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white font-bold">1</span>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Input Content</h3>
+                        <p class="text-gray-600">
+                            Users provide text input in various forms: a direct description, a list of steps, or a URL
+                            to a technical blog post or article.
+                        </p>
+                    </div>
+                    <div class="relative">
+                        <span
+                            class="absolute -left-[42px] top-0 w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white font-bold">2</span>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Process & Analyze</h3>
+                        <p class="text-gray-600">
+                            Our engine analyzes the text to identify entities, relationships, and sequential flows. It
+                            filters out noise to focus on the core structural elements.
+                        </p>
+                    </div>
+                    <div class="relative">
+                        <span
+                            class="absolute -left-[42px] top-0 w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white font-bold">3</span>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Generate Diagram</h3>
+                        <p class="text-gray-600">
+                            The system automatically lays out the blocks, routes connections to minimize overlapping,
+                            and renders a clean, vector-quality diagram ready for export.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA -->
+            <section class="text-center bg-blue-600 rounded-2xl p-12 text-white">
+                <h2 class="text-3xl font-bold mb-4">Start Visualizing Today</h2>
+                <p class="text-blue-100 mb-8 max-w-xl mx-auto">
+                    Join thousands of content creators who use DrawBlock to make their complex ideas simple and visual.
+                </p>
+                <div class="flex gap-4 justify-center">
+                    <a href="demo-updated.html"
+                        class="bg-white text-blue-600 px-8 py-3 rounded-lg font-bold hover:bg-blue-50 transition-colors">
+                        Try It Now
+                    </a>
+                    <a href="https://github.com/yourusername/drawblock" target="_blank"
+                        class="border border-white text-white px-8 py-3 rounded-lg font-bold hover:bg-blue-700 transition-colors">
+                        View on GitHub
+                    </a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-50 border-t border-gray-200 py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm text-gray-600">
+            <p>&copy; 2026 DrawBlock. Open Source Project.</p>
+        </div>
+    </footer>
+</body>
+
+</html>
