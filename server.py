@@ -22,13 +22,13 @@ app.add_middleware(
 
 # --- 2. PREPARE DIRECTORIES ---
 os.makedirs("output", exist_ok=True)
-os.makedirs("static", exist_ok=True) # Added this to prevent crash if folder is missing
+os.makedirs("static", exist_ok=True) 
 
 # --- 3. SERVE GENERATED IMAGES ---
 app.mount("/output", StaticFiles(directory="output"), name="output")
 
 class RequestData(BaseModel):
-    data: str  # Can be URL or Text
+    data: str 
 
 @app.post("/generate-diagram")
 async def generate_api(request: RequestData):
@@ -41,15 +41,30 @@ async def generate_api(request: RequestData):
             content = fetch_web_content(user_input)
             labels = await get_diagram_labels(content)
         
-        # 2. Check Explicit List (Simple comma split)
-        elif "," in user_input and len(user_input.split()) < 20:
+        # 2. Check for Arrows (Fix for 400 Error)
+        elif "->" in user_input:
+            labels = [x.strip() for x in user_input.split("->") if x.strip()]
+
+        # 3. Check Explicit List (Comma split)
+        elif "," in user_input:
              labels = [x.strip() for x in user_input.split(",") if x.strip()]
 
-        # 3. Text Description
-        else:
-            labels = await get_diagram_labels(user_input)
+        # 4. Check for New Lines (Fix for pasted lists)
+        elif "\n" in user_input:
+            labels = [x.strip() for x in user_input.split("\n") if x.strip()]
 
-        # 4. Generate Image
+        # 5. AI / Fallback
+        else:
+            try:
+                labels = await get_diagram_labels(user_input)
+            except:
+                labels = []
+            
+            # Fallback if AI fails: split by spaces if short
+            if not labels and len(user_input.split()) < 15:
+                labels = user_input.split()
+
+        # 6. Generate Image
         if labels:
             # Use UUID for cleaner filenames
             filename = f"diagram_{uuid.uuid4().hex[:8]}.png"
@@ -64,14 +79,13 @@ async def generate_api(request: RequestData):
                 "steps": labels
             }
         
-        raise HTTPException(status_code=400, detail="Could not extract steps")
+        raise HTTPException(status_code=400, detail="Could not extract steps. Try using '->' or commas.")
 
     except Exception as e:
         print(f"Error: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
-# --- 4. SERVE FRONTEND (MOVED TO BOTTOM TO FIX API ISSUE) ---
-# This must be the last route definition to avoid blocking the API
+# --- 4. SERVE FRONTEND ---
 app.mount("/", StaticFiles(directory="static", html=True), name="static")
 
 if __name__ == "__main__":
