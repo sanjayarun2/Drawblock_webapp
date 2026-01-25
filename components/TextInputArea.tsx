@@ -33,8 +33,7 @@ export default function TextInputArea() {
         // Set canvas size
         canvas.width = 800;
         // Generate diagram logic
-        const ctx = canvas.getContext('2d');
-        if (!ctx) return;
+        // Generate diagram logic
 
         const items = text.split(/[\s,\n]+/).filter(item => item.trim());
         const boxWidth = 200;
