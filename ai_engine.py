@@ -8,7 +8,8 @@ from google.genai import types
 
 # --- 1. CONFIGURATION ---
 MODEL_NAME = "gemini-2.5-flash-lite"
-API_KEY = "AIzaSyCF9iaJ9yxUo_gwyOLiz4hxpPDjaa3Mzhg" 
+# Read API key from environment variable, fallback to hardcoded value for local testing
+API_KEY = os.getenv("GOOGLE_API_KEY", "AIzaSyCF9iaJ9yxUo_gwyOLiz4hxpPDjaa3Mzhg")
 
 # --- 2. UNIVERSAL SCHEMA ---
 class DiagramStep(BaseModel):
