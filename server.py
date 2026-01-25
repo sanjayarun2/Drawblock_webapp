@@ -66,8 +66,10 @@ async def generate_api(request: RequestData):
                 labels = await get_diagram_labels(content)
         
         # CASE B: Explicit List (Bypass AI just like main.py)
-        elif is_explicit_list(user_input):
-            print("👉 Detected Explicit List.")
+        # "If user directly give what should be in block diagram"
+        elif is_explicit_list(user_input) and " " not in user_input.strip().replace(",", ""):
+            # If it's JUST words separated by commas, skip AI to follow instruction strictly
+            print("👉 Detected Explicit List (Skipping AI extraction).")
             labels = [x.strip() for x in re.split(r'[,\n]+', user_input) if x.strip()]
 
         # CASE C: Description (Use AI)
