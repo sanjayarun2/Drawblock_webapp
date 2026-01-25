@@ -7,3 +7,4 @@ pydantic
 trafilatura
 beautifulsoup4
 cairosvg
+lxml_html_clean
