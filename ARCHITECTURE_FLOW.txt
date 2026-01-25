@@ -1,0 +1,187 @@
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                         DRAWBLOCK WEBAPP ARCHITECTURE                        │
+│                    Frontend ↔ Backend API Connection Flow                   │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│  FRONTEND (Client Side)                                                      │
+│  Files: /static/index.html, /static/components/TextInputArea.tsx            │
+└──────────────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    │ 1. User enters text and clicks
+                                    │    "Generate Diagram" button
+                                    ▼
+        ┌───────────────────────────────────────────────────┐
+        │  JavaScript Event Handler                         │
+        │  - Validates input (not empty)                    │
+        │  - Shows loading state: "⏳ Generating..."       │
+        └───────────────────────────────────────────────────┘
+                                    │
+                                    │ 2. Makes HTTP POST request
+                                    │
+        ┌───────────────────────────────────────────────────┐
+        │  fetch("/generate-diagram", {                     │
+        │    method: "POST",                                │
+        │    body: JSON.stringify({                         │
+        │      data: "User login, verify, dashboard"        │
+        │    })                                             │
+        │  })                                               │
+        └───────────────────────────────────────────────────┘
+                                    │
+                                    │ HTTP Request
+                                    │ Content-Type: application/json
+                                    ▼
+┌──────────────────────────────────────────────────────────────────────────────┐
+│  BACKEND (Server Side) - FastAPI Server                                      │
+│  File: /server.py                                                            │
+└──────────────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    │ 3. Receives POST /generate-diagram
+                                    │
+        ┌───────────────────────────────────────────────────┐
+        │  @app.post("/generate-diagram")                   │
+        │  - Extract: user_input = request.data             │
+        │  - Classify input type                            │
+        └───────────────────────────────────────────────────┘
+                                    │
+                    ┌───────────────┼───────────────┐
+                    │               │               │
+                    ▼               ▼               ▼
+        ┌─────────────────┐ ┌──────────────┐ ┌──────────────────┐
+        │   CASE A: URL   │ │ CASE B: List │ │ CASE C: Prompt   │
+        │   (is_url)      │ │(is_explicit) │ │   (else)         │
+        └─────────────────┘ └──────────────┘ └──────────────────┘
+                    │               │               │
+                    │               │               │
+        ┌───────────▼─────────┐     │     ┌─────────▼──────────┐
+        │  4a. scraper.py     │     │     │ 4c. ai_engine.py   │
+        │  fetch_web_content()│     │     │ get_diagram_labels │
+        │  - Trafilatura      │     │     │ - Gemini AI call   │
+        │  - BeautifulSoup    │     │     │ - Extract steps    │
+        └─────────┬───────────┘     │     └──────────┬─────────┘
+                  │                 │                │
+                  │   ┌─────────────▼────┐           │
+                  │   │ 4b. Direct Parse │           │
+                  │   │ Split by comma   │           │
+                  │   └─────────────┬────┘           │
+                  │                 │                │
+                  └─────────────────┼────────────────┘
+                                    │
+                                    │ 5. labels = [step1, step2, ...]
+                                    │
+                                    ▼
+        ┌───────────────────────────────────────────────────┐
+        │  renderer.py - render_diagram(labels)             │
+        │  - Load SVG template                              │
+        │  - Create blocks for each label                   │
+        │  - Add arrows between blocks                      │
+        │  - Convert SVG → PNG (cairosvg)                   │
+        │  - Save to: output/diagram_abc123.png             │
+        └───────────────────────────────────────────────────┘
+                                    │
+                                    │ 6. Returns JSON response
+                                    │
+        ┌───────────────────────────────────────────────────┐
+        │  return {                                         │
+        │    "status": "success",                           │
+        │    "image_url": "/output/diagram_abc123.png",     │
+        │    "steps": ["Login", "Verify", "Dashboard"]      │
+        │  }                                                │
+        └───────────────────────────────────────────────────┘
+                                    │
+                                    │ HTTP Response
+                                    │ Status: 200 OK
+                                    ▼
+┌──────────────────────────────────────────────────────────────────────────────┐
+│  FRONTEND (Client Side)                                                      │
+└──────────────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    │ 7. Parse JSON response
+                                    │
+        ┌───────────────────────────────────────────────────┐
+        │  const data = await response.json();              │
+        │  if (response.ok) {                               │
+        │    diagramPreview.src = data.image_url;           │
+        │    previewArea.classList.remove('hidden');        │
+        │    previewArea.scrollIntoView();                  │
+        │  }                                                │
+        └───────────────────────────────────────────────────┘
+                                    │
+                                    │ 8. Display generated diagram
+                                    │
+        ┌───────────────────────────────────────────────────┐
+        │  <img src="/output/diagram_abc123.png" />         │
+        │  [Download PNG Button]                            │
+        └───────────────────────────────────────────────────┘
+                                    │
+                                    │ 9. File served via FastAPI
+                                    │
+        ┌───────────────────────────────────────────────────┐
+        │  app.mount("/output",                             │
+        │     StaticFiles(directory="output"))              │
+        └───────────────────────────────────────────────────┘
+
+
+═══════════════════════════════════════════════════════════════════════════════
+                              KEY COMPONENTS
+═══════════════════════════════════════════════════════════════════════════════
+
+┌─────────────┬──────────────────┬─────────────────────────────────────────┐
+│  File       │  Technology      │  Purpose                                │
+├─────────────┼──────────────────┼─────────────────────────────────────────┤
+│ server.py   │ FastAPI          │ Main API server, routing, logic         │
+│ ai_engine.py│ Google Gemini AI │ Extract logical steps from text         │
+│ scraper.py  │ Trafilatura      │ Scrape and clean web content            │
+│ renderer.py │ cairosvg, XML    │ Generate PNG diagrams from labels       │
+│ index.html  │ JavaScript       │ Frontend UI, API calls                  │
+└─────────────┴──────────────────┴─────────────────────────────────────────┘
+
+
+═══════════════════════════════════════════════════════════════════════════════
+                           API ENDPOINT DETAILS
+═══════════════════════════════════════════════════════════════════════════════
+
+Endpoint: POST /generate-diagram
+
+Request Payload:
+┌─────────────────────────────────────────┐
+│ {                                       │
+│   "data": "Login, Verify, Dashboard"    │
+│ }                                       │
+└─────────────────────────────────────────┘
+
+Response Payload:
+┌───────────────────────────────────────────────────────────┐
+│ {                                                         │
+│   "status": "success",                                    │
+│   "image_url": "/output/diagram_a1b2c3d4.png",            │
+│   "steps": ["Login", "Verify", "Dashboard"]               │
+│ }                                                         │
+└───────────────────────────────────────────────────────────┘
+
+
+═══════════════════════════════════════════════════════════════════════════════
+                         THREE INPUT PROCESSING MODES
+═══════════════════════════════════════════════════════════════════════════════
+
+1. URL Mode
+   Input:  "https://example.com/process"
+   Flow:   URL → Scraper → Web Content → AI → Labels → Diagram
+
+2. List Mode (Direct)
+   Input:  "Login, Verify, Dashboard"
+   Flow:   List → Split → Labels → Diagram (NO AI)
+
+3. Description Mode
+   Input:  "User logs in, system validates credentials, shows dashboard"
+   Flow:   Text → AI → Labels → Diagram
+
+
+═══════════════════════════════════════════════════════════════════════════════
+                              SERVER STARTUP
+═══════════════════════════════════════════════════════════════════════════════
+
+Backend:   uvicorn server:app --host 0.0.0.0 --port 8000
+Frontend:  Served by FastAPI at: app.mount("/", StaticFiles(directory="static"))
+Access:    http://localhost:8000
+
