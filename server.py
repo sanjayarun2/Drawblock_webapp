@@ -12,7 +12,7 @@ from renderer import render_diagram
 
 app = FastAPI()
 
-# --- 1. ENABLE CORS (Important for frontend connection) ---
+# --- 1. ENABLE CORS ---
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -20,14 +20,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# --- 2. SERVE GENERATED IMAGES 👈 CRITICAL FIX ---
-# This lets the browser see the images inside the 'output' folder
+# --- 2. PREPARE DIRECTORIES ---
 os.makedirs("output", exist_ok=True)
-app.mount("/output", StaticFiles(directory="output"), name="output")
+os.makedirs("static", exist_ok=True) # Added this to prevent crash if folder is missing
 
-# --- 3. SERVE FRONTEND (INDEX.HTML) 👈 CRITICAL FIX ---
-# This tells the server: "When user visits '/', show them the 'static' folder"
-app.mount("/", StaticFiles(directory="static", html=True), name="static")
+# --- 3. SERVE GENERATED IMAGES ---
+app.mount("/output", StaticFiles(directory="output"), name="output")
 
 class RequestData(BaseModel):
     data: str  # Can be URL or Text
@@ -71,6 +69,10 @@ async def generate_api(request: RequestData):
     except Exception as e:
         print(f"Error: {e}")
         raise HTTPException(status_code=500, detail=str(e))
+
+# --- 4. SERVE FRONTEND (MOVED TO BOTTOM TO FIX API ISSUE) ---
+# This must be the last route definition to avoid blocking the API
+app.mount("/", StaticFiles(directory="static", html=True), name="static")
 
 if __name__ == "__main__":
     import uvicorn
