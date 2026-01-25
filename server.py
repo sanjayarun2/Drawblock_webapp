@@ -1,9 +1,10 @@
 import os
 import uuid
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, File, UploadFile
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+import shutil
 
 # Import your modules
 from scraper import fetch_web_content
@@ -31,6 +32,31 @@ app.mount("/", StaticFiles(directory="static", html=True), name="static")
 
 class RequestData(BaseModel):
     data: str  # Can be URL or Text
+
+@app.post("/api/upload")
+async def upload_file(file: UploadFile = File(...)):
+    try:
+        # Create uploads directory if it doesn't exist
+        os.makedirs("uploads", exist_ok=True)
+        
+        # Safe filename
+        filename = f"{uuid.uuid4().hex}_{file.filename}"
+        file_path = os.path.join("uploads", filename)
+        
+        with open(file_path, "wb") as buffer:
+            shutil.copyfileobj(file.file, buffer)
+            
+        # TODO: Process the image here if needed
+        # For now, just return success
+        
+        return {
+            "success": True, 
+            "filename": filename,
+            "message": "File uploaded successfully"
+        }
+    except Exception as e:
+        print(f"Upload error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 @app.post("/generate-diagram")
 async def generate_api(request: RequestData):

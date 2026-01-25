@@ -1,10 +1,22 @@
-# 1. Use an official lightweight Python image
-FROM python:3.10-slim
+# --- Stage 1: Build Frontend (Node.js) ---
+FROM node:18-alpine AS builder
 
-# 2. Set the working directory inside the container
 WORKDIR /app
 
-# 3. CRITICAL: Install system dependencies (libcairo) for CairoSVG
+# Copy package files and install dependencies
+COPY package.json package-lock.json* ./
+RUN npm install
+
+# Copy source code and build
+COPY . .
+RUN npm run build
+
+# --- Stage 2: Serve Backend (Python) ---
+FROM python:3.10-slim
+
+WORKDIR /app
+
+# Install system dependencies (libcairo) for CairoSVG
 RUN apt-get update && apt-get install -y \
     libcairo2 \
     libcairo2-dev \
@@ -12,15 +24,19 @@ RUN apt-get update && apt-get install -y \
     libpangocairo-1.0-0 \
     && rm -rf /var/lib/apt/lists/*
 
-# 4. Copy the requirements file and install Python libraries
+# Copy python requirements and install
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# 5. Copy the rest of your application code
+# Copy backend code
 COPY . .
 
-# 6. Expose the port the app runs on
+# Copy built frontend from Stage 1 to 'static' folder
+# This replaces the raw code with the compiled app
+COPY --from=builder /app/out /app/static
+
+# Expose port
 EXPOSE 8000
 
-# 7. Command to run the application
+# Run application
 CMD ["uvicorn", "server:app", "--host", "0.0.0.0", "--port", "8000"]
