@@ -1,0 +1,114 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+  
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-text-primary font-sans antialiased;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  /* Button Styles */
+  .btn-primary {
+    @apply bg-primary hover:bg-primary-600 text-white font-medium px-6 py-3 rounded-button 
+           transition-all duration-200 shadow-button hover:shadow-card-hover 
+           active:scale-95 cursor-pointer;
+  }
+  
+  .btn-secondary {
+    @apply bg-white hover:bg-background-secondary text-text-primary font-medium px-6 py-3 
+           rounded-button border border-background-tertiary transition-all duration-200
+           hover:border-primary/30 active:scale-95 cursor-pointer;
+  }
+  
+  /* Card Styles */
+  .card {
+    @apply bg-white rounded-card shadow-card transition-all duration-300 hover:shadow-card-hover;
+  }
+  
+  /* Upload Area Styles */
+  .upload-area {
+    @apply card p-12 border-2 border-dashed border-background-tertiary 
+           hover:border-primary/30 transition-all duration-300 cursor-pointer
+           flex flex-col items-center justify-center gap-4;
+  }
+  
+  .upload-area.drag-active {
+    @apply border-primary bg-primary-50/50 scale-[1.02];
+  }
+}
+
+@layer utilities {
+  /* Typography */
+  .heading-xl {
+    @apply text-5xl md:text-6xl font-bold leading-tight tracking-tight;
+  }
+  
+  .heading-lg {
+    @apply text-4xl font-bold leading-tight;
+  }
+  
+  .heading-md {
+    @apply text-3xl font-semibold leading-snug;
+  }
+  
+  .body-lg {
+    @apply text-lg leading-relaxed;
+  }
+  
+  .body-md {
+    @apply text-base leading-relaxed;
+  }
+  
+  /* Gradient Text */
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary-600 via-primary-500 to-primary-400 
+           bg-clip-text text-transparent;
+  }
+  
+  /* Container */
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+}
+
+/* Custom Animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Badge Pulse Animation */
+@keyframes pulse-soft {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.95;
+    transform: scale(1.02);
+  }
+}
+
+.animate-pulse-soft {
+  animation: pulse-soft 2s ease-in-out infinite;
+}
