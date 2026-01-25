@@ -43,13 +43,32 @@ export default function UploadArea() {
         setUploadedFile(file);
         setIsProcessing(true);
 
-        // Simulate processing - in real app, this would call your Python backend
-        setTimeout(() => {
+        try {
+            const formData = new FormData();
+            formData.append('file', file);
+
+            const response = await fetch('/api/upload', {
+                method: 'POST',
+                body: formData,
+            });
+
+            if (!response.ok) {
+                throw new Error('Upload failed');
+            }
+
+            const data = await response.json();
+            console.log('File processed:', data);
+
+            // You can add additional logic here to handle the response
+            // For example, if the backend returns a processed image URL:
+            // if (data.processed_url) { ... }
+
+        } catch (error) {
+            console.error('Error uploading file:', error);
+            alert('Failed to upload file. Please try again.');
+        } finally {
             setIsProcessing(false);
-            console.log('File processed:', file.name);
-            // Here you would send the file to your Python backend API
-            // Example: await fetch('/api/upload', { method: 'POST', body: formData })
-        }, 2000);
+        }
     };
 
     const handlePaste = useCallback((e: React.ClipboardEvent) => {
