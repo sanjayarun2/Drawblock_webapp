@@ -65,16 +65,19 @@ async def generate_api(request: RequestData):
             if content:
                 labels = await get_diagram_labels(content)
         
-        # CASE B: Explicit List (Bypass AI)
+        # CASE B: User entered an Explicit List (Comma/Newline separated)
         # If user provides comma or newline separated list (short input), use it directly
         elif is_explicit_list(user_input):
             print("👉 Detected Explicit List (Skipping AI extraction).")
+            # Split by comma or newline
             labels = [x.strip() for x in re.split(r'[,\n]+', user_input) if x.strip()]
-
-        # CASE C: Description (Use AI)
+        
+        # CASE C: User entered a Description/Prompt
         else:
             print("👉 Detected Text Description.")
-            labels = await get_diagram_labels(user_input)
+            extracted_content = user_input
+            # Pass description to AI to abstract the flow
+            labels = await get_diagram_labels(extracted_content)
 
         # --- GENERATE IMAGE ---
         if labels:
