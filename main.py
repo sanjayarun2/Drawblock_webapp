@@ -43,9 +43,10 @@ async def main_pipeline():
         # Pass website content to AI to get logical steps
         labels = await get_diagram_labels(extracted_content)
 
-    # CASE B: User entered an Explicit List (Comma/Newline separated)
-    # If user provides comma or newline separated list (short input), use it directly
-    elif is_explicit_list(user_input):
+    # CASE B: User entered an Explicit List (Comma/Space separated)
+    # "If user directly give what should be in block diagram"
+    elif is_explicit_list(user_input) and " " not in user_input.strip().replace(",", ""):
+        # If it's JUST words separated by commas, skip AI to follow instruction strictly
         print("👉 Detected Explicit List (Skipping AI extraction).")
         # Split by comma or newline
         labels = [x.strip() for x in re.split(r'[,\n]+', user_input) if x.strip()]
