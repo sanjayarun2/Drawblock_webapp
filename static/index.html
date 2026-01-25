@@ -11,11 +11,44 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; }
-        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
-        @keyframes pulse-soft { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.95; transform: scale(1.02); } }
-        .animate-float { animation: float 3s ease-in-out infinite; }
-        .animate-pulse-soft { animation: pulse-soft 2s ease-in-out infinite; }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes pulse-soft {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.95;
+                transform: scale(1.02);
+            }
+        }
+
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .animate-pulse-soft {
+            animation: pulse-soft 2s ease-in-out infinite;
+        }
+
         .gradient-text {
             background: linear-gradient(to right, #0A58CA, #0D6EFD, #3399FF);
             -webkit-background-clip: text;
@@ -37,26 +70,47 @@
 </head>
 
 <body class="bg-white antialiased">
+    <!-- Header -->
     <header class="bg-white border-b border-gray-200 sticky top-0 z-50 backdrop-blur-sm bg-white/95">
         <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div class="flex items-center justify-between">
                 <a href="#" class="flex items-center gap-2 group">
-                    <div class="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-600 rounded-lg flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105">
+                    <div
+                        class="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-600 rounded-lg flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105">
                         <span class="text-white font-bold text-xl">D</span>
                     </div>
                     <span class="text-xl font-bold text-gray-900 hidden sm:inline-block">DrawBlock</span>
                 </a>
                 <div class="hidden md:flex items-center gap-8">
-                    <a href="#" class="group">
-                        <span class="inline-flex items-center px-3 py-1 rounded-full bg-green-100 text-green-800 text-xs font-semibold border border-green-200 group-hover:bg-green-200 transition-colors cursor-pointer">
+                    <a href="opensource.html" class="group">
+                        <span
+                            class="inline-flex items-center px-3 py-1 rounded-full bg-green-100 text-green-800 text-xs font-semibold border border-green-200 group-hover:bg-green-200 transition-colors cursor-pointer">
                             Open Source
                         </span>
                     </a>
+                    <a href="#" class="text-gray-600 hover:text-primary font-medium transition-colors">API</a>
+                    <a href="https://github.com/yourusername/drawblock" target="_blank"
+                        class="text-gray-600 hover:text-primary font-medium transition-colors flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill-rule="evenodd"
+                                d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        GitHub
+                    </a>
+                </div>
+                <div class="flex items-center gap-3">
+                    <a href="#"
+                        class="hidden sm:inline-block text-gray-600 hover:text-primary font-medium px-4 py-2">Log In</a>
+                    <a href="#"
+                        class="bg-primary hover:bg-primary-600 text-white font-medium px-6 py-2.5 rounded-lg transition-all shadow-md hover:shadow-lg">Sign
+                        up</a>
                 </div>
             </div>
         </nav>
     </header>
 
+    <!-- Hero Section -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
         <div class="grid md:grid-cols-2 gap-12 items-center">
             <div class="space-y-6">
@@ -66,36 +120,49 @@
                     </h1>
                     <div class="flex items-center gap-3">
                         <p class="text-xl md:text-2xl text-gray-600">100% Automatically and</p>
-                        <span class="inline-flex items-center px-4 py-1.5 rounded-full bg-primary text-white font-semibold text-sm shadow-md animate-pulse-soft">Free</span>
+                        <span
+                            class="inline-flex items-center px-4 py-1.5 rounded-full bg-primary text-white font-semibold text-sm shadow-md animate-pulse-soft">Free</span>
                     </div>
                 </div>
                 <p class="text-lg text-gray-600 max-w-xl">
                     Convert any text, blog URL, or article description into professional block diagrams instantly.
+                    Perfect for writers, researchers, and journals who want to visualize their content automatically.
                 </p>
                 <div class="flex flex-wrap gap-3 pt-4">
                     <div class="flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full border border-gray-200">
-                        <span class="text-sm font-medium">⚡ Instant Generation</span>
+                        <svg class="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                        <span class="text-sm font-medium">Instant Generation</span>
                     </div>
                     <div class="flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full border border-gray-200">
-                        <span class="text-sm font-medium">🤖 AI Powered</span>
+                        <svg class="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+                        </svg>
+                        <span class="text-sm font-medium">Auto Layout</span>
                     </div>
                     <div class="flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full border border-gray-200">
-                        <span class="text-sm font-medium">📥 PNG Download</span>
+                        <svg class="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        <span class="text-sm font-medium">PNG Download</span>
                     </div>
                 </div>
             </div>
-
+            <!-- Text Input Area - Right Side -->
             <div class="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
                 <div class="space-y-4">
                     <label for="textInput" class="block text-lg font-semibold text-gray-900">
                         Enter your description, URL, or text
                     </label>
                     <textarea id="textInput"
-                        placeholder="e.g. https://example.com/how-auth-works&#10;OR: User Login -> Verify Database -> Success"
+                        placeholder="e.g., User Login Authentication Database Response Success&#10;or: https://example.com/process&#10;or: Step1 Step2 Step3 Process Complete"
                         class="w-full h-48 px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-primary focus:outline-none transition-colors resize-none text-gray-900"></textarea>
-                    
                     <button id="generateBtn"
-                        class="bg-primary hover:bg-primary-600 text-white font-medium px-8 py-3 rounded-lg transition-all shadow-md hover:shadow-lg w-full disabled:bg-gray-400 disabled:cursor-not-allowed">
+                        class="bg-primary hover:bg-primary-600 text-white font-medium px-8 py-3 rounded-lg transition-all shadow-md hover:shadow-lg w-full">
                         Generate Diagram
                     </button>
                 </div>
@@ -103,142 +170,280 @@
         </div>
     </section>
 
+    <!-- Diagram Preview Area -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div class="max-w-4xl mx-auto space-y-6">
-            
+            <canvas id="diagramCanvas" class="hidden"></canvas>
+
             <div id="previewArea" class="hidden bg-white rounded-xl shadow-lg p-8 border border-gray-200 space-y-6">
                 <div class="flex items-center justify-between">
-                    <h3 class="text-xl font-semibold text-gray-900">✅ Your Block Diagram</h3>
+                    <h3 class="text-xl font-semibold text-gray-900">Your Block Diagram</h3>
                     <button id="downloadBtn"
-                        class="bg-green-600 hover:bg-green-700 text-white font-medium px-6 py-3 rounded-lg transition-all shadow-md hover:shadow-lg flex items-center gap-2">
+                        class="bg-primary hover:bg-primary-600 text-white font-medium px-6 py-3 rounded-lg transition-all shadow-md hover:shadow-lg flex items-center gap-2">
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                         </svg>
                         Download PNG
                     </button>
                 </div>
-                
-                <div class="bg-gray-50 rounded-lg p-4 border border-gray-200 flex justify-center">
-                    <img id="diagramPreview" alt="Generated block diagram" class="max-w-full h-auto rounded shadow-sm">
+                <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                    <img id="diagramPreview" alt="Generated block diagram" class="w-full h-auto rounded">
                 </div>
-                
-                <div class="text-sm text-gray-500">
-                    <p class="font-semibold mb-1">Detected Steps:</p>
-                    <p id="stepsText" class="font-mono bg-gray-100 p-2 rounded"></p>
-                </div>
+                <p class="text-sm text-gray-500 text-center">Click "Download PNG" to save your diagram</p>
             </div>
         </div>
     </section>
 
+    <!-- Sample Inputs -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-16">
         <div class="max-w-2xl mx-auto text-center space-y-6">
-            <p class="text-gray-600">No text? <span class="font-medium text-gray-900">Try one of these:</span></p>
+            <p class="text-gray-600">
+                No text? <span class="font-medium text-gray-900">Try one of these:</span>
+            </p>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                
-                <button class="sample-btn group p-6 rounded-lg border-2 border-gray-200 hover:border-primary/50 hover:shadow-lg text-left bg-white"
-                    data-text="User enters credentials, System validates password, Generate Session Token, Redirect to Dashboard">
-                    <div class="font-medium text-gray-900 group-hover:text-primary">User Login Flow</div>
-                    <div class="text-xs text-gray-500 mt-1">Simple linear process</div>
+                <button
+                    class="sample-btn group relative p-6 rounded-lg overflow-hidden border-2 border-gray-200 hover:border-primary/50 hover:shadow-lg transition-all text-left bg-white"
+                    data-text="User Login Process Flow">
+                    <div class="flex items-start gap-3">
+                        <svg class="w-6 h-6 flex-shrink-0 text-primary-400 group-hover:text-primary transition-colors"
+                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        <div>
+                            <p class="font-medium text-gray-900 group-hover:text-primary transition-colors">User
+                                Login
+                                Process Flow</p>
+                            <p class="text-xs text-gray-500 mt-1">Click to generate diagram</p>
+                        </div>
+                    </div>
                 </button>
-
-                <button class="sample-btn group p-6 rounded-lg border-2 border-gray-200 hover:border-primary/50 hover:shadow-lg text-left bg-white"
-                    data-text="Sensor reads temp, If temp > 50 trigger alarm, Else continue monitoring, Log data to cloud">
-                    <div class="font-medium text-gray-900 group-hover:text-primary">IoT Sensor Logic</div>
-                    <div class="text-xs text-gray-500 mt-1">Decision based flow</div>
+                <button
+                    class="sample-btn group relative p-6 rounded-lg overflow-hidden border-2 border-gray-200 hover:border-primary/50 hover:shadow-lg transition-all text-left bg-white"
+                    data-text="Data Pipeline Analytics Dashboard">
+                    <div class="flex items-start gap-3">
+                        <svg class="w-6 h-6 flex-shrink-0 text-primary-400 group-hover:text-primary transition-colors"
+                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        <div>
+                            <p class="font-medium text-gray-900 group-hover:text-primary transition-colors">Data
+                                Pipeline Analytics Dashboard</p>
+                            <p class="text-xs text-gray-500 mt-1">Click to generate diagram</p>
+                        </div>
+                    </div>
                 </button>
-
+                <button
+                    class="sample-btn group relative p-6 rounded-lg overflow-hidden border-2 border-gray-200 hover:border-primary/50 hover:shadow-lg transition-all text-left bg-white"
+                    data-text="API Request Response Validation">
+                    <div class="flex items-start gap-3">
+                        <svg class="w-6 h-6 flex-shrink-0 text-primary-400 group-hover:text-primary transition-colors"
+                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        <div>
+                            <p class="font-medium text-gray-900 group-hover:text-primary transition-colors">API
+                                Request
+                                Response Validation</p>
+                            <p class="text-xs text-gray-500 mt-1">Click to generate diagram</p>
+                        </div>
+                    </div>
+                </button>
+                <button
+                    class="sample-btn group relative p-6 rounded-lg overflow-hidden border-2 border-gray-200 hover:border-primary/50 hover:shadow-lg transition-all text-left bg-white"
+                    data-text="Frontend Backend Database Integration">
+                    <div class="flex items-start gap-3">
+                        <svg class="w-6 h-6 flex-shrink-0 text-primary-400 group-hover:text-primary transition-colors"
+                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        <div>
+                            <p class="font-medium text-gray-900 group-hover:text-primary transition-colors">
+                                Frontend
+                                Backend Database Integration</p>
+                            <p class="text-xs text-gray-500 mt-1">Click to generate diagram</p>
+                        </div>
+                    </div>
+                </button>
+            </div>
+            <div class="pt-8 text-sm text-gray-400 space-y-2">
+                <p>By using DrawBlock you agree to our <a href="#" class="text-primary hover:underline">Terms of
+                        Service</a>.</p>
+                <p>To learn more about how we handle your data, view our <a href="#"
+                        class="text-primary hover:underline">Privacy Policy</a>.</p>
             </div>
         </div>
     </section>
 
+    <!-- Footer -->
     <footer class="bg-gray-50 border-t border-gray-200 py-8 mt-12">
-        <div class="max-w-7xl mx-auto px-4 text-center text-gray-600">
-            <p>&copy; 2026 DrawBlock. Powered by Gemini AI.</p>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-3">Product</h3>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li><a href="#" class="hover:text-primary transition-colors">Features</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Pricing</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">API</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-3">Company</h3>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li><a href="#" class="hover:text-primary transition-colors">About</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Blog</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Careers</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-3">Resources</h3>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li><a href="#" class="hover:text-primary transition-colors">Documentation</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Support</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Status</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-3">Legal</h3>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li><a href="#" class="hover:text-primary transition-colors">Privacy</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Terms</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Cookies</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-gray-200 text-center text-sm text-gray-600">
+                <p>&copy; 2026 DrawBlock. All rights reserved.</p>
+            </div>
         </div>
     </footer>
 
     <script>
         const textInput = document.getElementById('textInput');
         const generateBtn = document.getElementById('generateBtn');
+        const canvas = document.getElementById('diagramCanvas');
         const previewArea = document.getElementById('previewArea');
         const diagramPreview = document.getElementById('diagramPreview');
         const downloadBtn = document.getElementById('downloadBtn');
-        const stepsText = document.getElementById('stepsText');
         const sampleBtns = document.querySelectorAll('.sample-btn');
 
-        // --- 1. THE MAIN FUNCTION TO CALL PYTHON ---
-        async function callBackend(inputText) {
-            // UI: Show loading
-            const originalText = generateBtn.innerText;
-            generateBtn.innerText = "⏳ Generating Diagram...";
-            generateBtn.disabled = true;
-            previewArea.classList.add('hidden'); // Hide old results
+        function generateDiagram(text) {
+            const ctx = canvas.getContext('2d');
 
-            try {
-                // CALL THE PYTHON SERVER
-                const response = await fetch("/generate-diagram", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ data: inputText })
-                });
+            const items = text.split(/[\s,\n]+/).filter(item => item.trim());
+            const boxWidth = 200;
+            const boxHeight = 80;
+            const spacing = 60;
 
-                const data = await response.json();
+            // Dynamic height based on items
+            canvas.width = 800; // Fixed width
+            canvas.height = Math.max(600, 100 + items.length * (boxHeight + spacing)); // Dynamic height
 
-                if (response.ok) {
-                    // SUCCESS: Update Image
-                    diagramPreview.src = data.image_url;
-                    stepsText.innerText = data.steps.join(" → ");
-                    
-                    // Show Result Area
-                    previewArea.classList.remove('hidden');
-                    
-                    // Scroll to result
-                    previewArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                } else {
-                    alert("Error: " + (data.detail || "Unknown error from server"));
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            const startX = (canvas.width - boxWidth) / 2;
+            let startY = 50;
+
+            items.forEach((item, index) => {
+                const x = startX;
+                const y = startY + index * (boxHeight + spacing);
+
+                // Draw connector from previous box
+                if (index > 0) {
+                    const prevY = startY + (index - 1) * (boxHeight + spacing);
+
+                    ctx.strokeStyle = '#0D6EFD';
+                    ctx.lineWidth = 3;
+                    ctx.beginPath();
+                    ctx.moveTo(x + boxWidth / 2, prevY + boxHeight);
+                    ctx.lineTo(x + boxWidth / 2, y);
+                    ctx.stroke();
+
+                    // Arrow head
+                    const arrowSize = 10;
+                    const arrowX = x + boxWidth / 2;
+                    const arrowY = y;
+
+                    ctx.beginPath();
+                    ctx.moveTo(arrowX, arrowY);
+                    ctx.lineTo(arrowX - 6, arrowY - 10);
+                    ctx.moveTo(arrowX, arrowY);
+                    ctx.lineTo(arrowX + 6, arrowY - 10);
+                    ctx.stroke();
                 }
 
-            } catch (error) {
-                console.error(error);
-                alert("Could not connect to the backend server. Is it running?");
-            } finally {
-                // Reset Button
-                generateBtn.innerText = originalText;
-                generateBtn.disabled = false;
-            }
-        }
+                // Draw Box
+                ctx.fillStyle = '#E3F2FF';
+                ctx.strokeStyle = '#0D6EFD';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.roundRect(x, y, boxWidth, boxHeight, 8);
+                ctx.fill();
+                ctx.stroke();
 
-        // --- 2. EVENT LISTENERS ---
-        
-        // Main Generate Button
-        generateBtn.addEventListener('click', () => {
+                // Draw Text
+                ctx.fillStyle = '#212529';
+                ctx.font = 'bold 16px Inter, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+
+                const maxWidth = boxWidth - 20;
+                const words = item.split(' ');
+                let line = '';
+                const lines = [];
+
+                words.forEach(word => {
+                    const testLine = line + word + ' ';
+                    if (ctx.measureText(testLine).width > maxWidth && line !== '') {
+                        lines.push(line);
+                        line = word + ' ';
+                    } else {
+                        line = testLine;
+                    }
+                });
+                lines.push(line);
+
+                const lineHeight = 20;
+                const textY = y + boxHeight / 2 - ((lines.length - 1) * lineHeight) / 2;
+
+                lines.forEach((line, i) => {
+                    ctx.fillText(line.trim(), x + boxWidth / 2, textY + i * lineHeight);
+                });
+            });
+
+            const dataUrl = canvas.toDataURL('image/png');
+            diagramPreview.src = dataUrl;
+            previewArea.classList.remove('hidden');
+            previewArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        } generateBtn.addEventListener('click', () => {
             const text = textInput.value.trim();
             if (!text) {
-                alert('Please enter some text first!');
+                alert('Please enter some text to generate a diagram');
                 return;
             }
-            callBackend(text);
+            generateDiagram(text);
         });
 
-        // Sample Buttons
-        sampleBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const text = btn.getAttribute('data-text');
-                textInput.value = text; // Fill the box
-                callBackend(text);      // Auto-submit
-            });
-        });
-
-        // Download Button
         downloadBtn.addEventListener('click', () => {
             const link = document.createElement('a');
             link.download = 'block-diagram.png';
             link.href = diagramPreview.src;
-            document.body.appendChild(link);
             link.click();
-            document.body.removeChild(link);
         });
 
+        sampleBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const text = btn.getAttribute('data-text');
+                textInput.value = text;
+                generateDiagram(text);
+            });
+        });
     </script>
 </body>
+
 </html>
