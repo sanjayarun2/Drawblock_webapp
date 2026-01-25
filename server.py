@@ -61,9 +61,9 @@ async def generate_api(request: RequestData):
         # CASE A: URL
         if is_url(user_input):
             print("👉 Detected URL input.")
-            content = fetch_web_content(user_input)
-            if content:
-                labels = await get_diagram_labels(content)
+            extracted_content = fetch_web_content(user_input)
+            if extracted_content:
+                labels = await get_diagram_labels(extracted_content)
         
         # CASE B: User entered an Explicit List (Comma/Newline separated)
         # If user provides comma or newline separated list (short input), use it directly
