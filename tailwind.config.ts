@@ -31,7 +31,8 @@ const config: Config = {
                     primary: '#212529',
                     secondary: '#6C757D',
                     light: '#ADB5BD',
-                }
+                },
+                border: '#E9ECEF',
             },
             fontFamily: {
                 sans: ['Inter', 'system-ui', 'sans-serif'],
