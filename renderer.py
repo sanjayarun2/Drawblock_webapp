@@ -43,50 +43,47 @@ def render_diagram(labels: list, output_filename="output/final_diagram.png"):
 
     # Build Diagram
     for i, label_text in enumerate(labels):
-        # --- FIX: Wrap text and calculate dynamic width only if necessary ---
-        
-        # Calculate max characters per line to fit in DEFAULT_WIDTH (minus 20px padding)
+        # --- FIX STARTS HERE ---
+        # 1. Calculate max chars that fit in DEFAULT_WIDTH (minus 20px padding)
         max_chars = int((DEFAULT_WIDTH - 20) / CHAR_PX_RATIO)
         
-        # Wrap text; break_long_words=False ensures we only expand box if a single word is huge
+        # 2. Wrap text. break_long_words=False ensures we only expand if a single word is huge.
         lines = textwrap.wrap(label_text, width=max_chars, break_long_words=False)
         
-        # Determine width based on the longest line (effectively clamps to DEFAULT_WIDTH unless forced)
+        # 3. Calculate width based on the longest actual line 
+        # (This keeps it at DEFAULT_WIDTH unless a long word forces expansion)
         longest_line_len = max(len(line) for line in lines) if lines else 0
         block_width = max(DEFAULT_WIDTH, (longest_line_len * CHAR_PX_RATIO) + 20)
 
-        # Block
+        # 4. Create Block
         block = copy.deepcopy(rect_tpl)
         block.attrib.update({"x": str(current_x), "width": str(block_width)})
         root.append(block)
 
-        # Label (Multi-line handling)
+        # 5. Create Label with Multi-line Support (tspan)
         lbl = copy.deepcopy(text_tpl)
         lbl_center_x = current_x + block_width / 2
         lbl.attrib.update({"x": str(lbl_center_x)})
         
-        # Clear default text and use tspans
-        lbl.text = "" 
-        line_height = 14 # Pixels between lines
+        lbl.text = "" # Remove default text
+        line_height = 14 # Spacing between lines
         
-        # Calculate start shift to keep block vertically centered
-        # If 1 line, shift is 0. If 3 lines, shift up by 1 line height.
+        # Calculate vertical shift to center the block of text
         start_dy = -((len(lines) - 1) * line_height) / 2
         
         for j, line in enumerate(lines):
             tspan = ET.Element(f"{{{SVG_NS}}}tspan")
             tspan.text = line
-            tspan.set("x", str(lbl_center_x)) # Align to center of box
+            tspan.set("x", str(lbl_center_x)) # Align to center
             
-            if j == 0:
-                tspan.set("dy", str(start_dy)) # Initial vertical offset
-            else:
-                tspan.set("dy", str(line_height)) # Next lines shift down
+            # First line shifts by start_dy, others shift down by line_height
+            dy = start_dy if j == 0 else line_height
+            tspan.set("dy", str(dy))
             
             lbl.append(tspan)
             
         root.append(lbl)
-        # ------------------------------------------------------------------
+        # --- FIX ENDS HERE ---
 
         # Arrow
         if i < len(labels) - 1:
