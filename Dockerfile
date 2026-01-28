@@ -4,11 +4,11 @@ FROM python:3.10-slim
 # 2. Set the working directory inside the container
 WORKDIR /app
 
-# 3. CRITICAL: Install system dependencies (libcairo) for CairoSVG
-# FIX: Added libgdk-pixbuf, libffi-dev, and shared-mime-info (Required for cairosvg on slim)
-RUN apt-get update && apt-get install -y \
+# 3. CRITICAL: Install system dependencies for CairoSVG
+# Fix: Removed 'libcairo2-dev' to prevent "Unable to locate package" error (Exit 100)
+# Added --fix-missing to ensure the update handles connection blips
+RUN apt-get update --fix-missing && apt-get install -y \
     libcairo2 \
-    libcairo2-dev \
     libpango-1.0-0 \
     libpangocairo-1.0-0 \
     libgdk-pixbuf2.0-0 \
