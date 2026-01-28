@@ -5,13 +5,13 @@ FROM python:3.10-slim
 WORKDIR /app
 
 # 3. CRITICAL: Install system dependencies for CairoSVG
-# Fix: Removed 'libcairo2-dev' to prevent "Unable to locate package" error (Exit 100)
-# Added --fix-missing to ensure the update handles connection blips
-RUN apt-get update --fix-missing && apt-get install -y \
+# FIX: Changed 'libgdk-pixbuf2.0-0' to 'libgdk-pixbuf-2.0-0' (added dash)
+# FIX: This is the correct package name for Debian Bookworm (used by python:3.10-slim)
+RUN apt-get update && apt-get install -y \
     libcairo2 \
     libpango-1.0-0 \
     libpangocairo-1.0-0 \
-    libgdk-pixbuf2.0-0 \
+    libgdk-pixbuf-2.0-0 \
     libffi-dev \
     shared-mime-info \
     && rm -rf /var/lib/apt/lists/*
