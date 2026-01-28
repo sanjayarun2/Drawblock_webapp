@@ -66,7 +66,7 @@ def render_diagram(labels: list, output_filename="output/final_diagram.png"):
         lbl.attrib.update({"x": str(lbl_center_x)})
         
         lbl.text = "" # Remove default text
-        line_height = 14 # Spacing between lines
+        line_height = 20 # Spacing between lines
         
         # Calculate vertical shift to center the block of text
         start_dy = -((len(lines) - 1) * line_height) / 2
