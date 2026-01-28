@@ -5,11 +5,15 @@ FROM python:3.10-slim
 WORKDIR /app
 
 # 3. CRITICAL: Install system dependencies (libcairo) for CairoSVG
+# FIX: Added libgdk-pixbuf, libffi-dev, and shared-mime-info (Required for cairosvg on slim)
 RUN apt-get update && apt-get install -y \
     libcairo2 \
     libcairo2-dev \
     libpango-1.0-0 \
     libpangocairo-1.0-0 \
+    libgdk-pixbuf2.0-0 \
+    libffi-dev \
+    shared-mime-info \
     && rm -rf /var/lib/apt/lists/*
 
 # 4. Copy the requirements file and install Python libraries
