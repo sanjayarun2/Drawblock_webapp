@@ -56,12 +56,12 @@
             background-clip: text;
         }
 
-        /* POPUP STYLING */
+        /* Modal Background Styling */
         #waitlistModal {
             display: none;
             position: fixed;
             inset: 0;
-            z-index: 1000;
+            z-index: 9999;
             background: rgba(0, 0, 0, 0.6);
             backdrop-filter: blur(4px);
             align-items: center;
@@ -90,12 +90,23 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                 </svg>
             </div>
-            <h2 class="text-2xl font-bold text-gray-900">Waitlist Early Access</h2>
-            <p class="text-gray-600 leading-relaxed">It is very first version please join list we are still developing based on user requirement</p>
-            <div class="space-y-3">
-                <button onclick="closeModal()" class="w-full bg-primary hover:bg-primary-600 text-white font-bold py-3 rounded-lg transition-all shadow-lg">Join waitlist</button>
-                <button onclick="closeModal()" class="text-sm text-gray-400 hover:text-gray-600 transition-colors">Maybe later</button>
+            <div class="space-y-2">
+                <h2 class="text-2xl font-bold text-gray-900 tracking-tight">Join Our Waitlist</h2>
+                <p class="text-gray-600 leading-relaxed text-sm">It is very first version please join list we are still developing based on user requirement</p>
             </div>
+            
+            <form id="waitlistForm" class="space-y-4 text-left">
+                <div>
+                    <label for="email" class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1 px-1">Email Address</label>
+                    <input type="email" name="email" id="email" autocomplete="email" required 
+                        placeholder="example@email.com"
+                        class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all">
+                </div>
+                <button type="submit" id="waitlistSubmitBtn" class="w-full bg-primary hover:bg-primary-600 text-white font-bold py-3.5 rounded-xl transition-all shadow-lg">
+                    Join waitlist
+                </button>
+                <button type="button" onclick="closeModal()" class="w-full text-sm text-gray-400 hover:text-gray-600 font-medium transition-colors">Close</button>
+            </form>
         </div>
     </div>
 
@@ -109,24 +120,17 @@
                     </div>
                     <span class="text-xl font-bold text-gray-900 hidden sm:inline-block">DrawBlock</span>
                 </a>
-                
+
                 <div class="hidden md:flex items-center gap-8" style="display: none !important;">
                     <a href="opensource.html" class="group">
-                        <span
-                            class="inline-flex items-center px-3 py-1 rounded-full bg-green-100 text-green-800 text-xs font-semibold border border-green-200 group-hover:bg-green-200 transition-colors cursor-pointer">
-                            Open Source
-                        </span>
+                        <span class="inline-flex items-center px-3 py-1 rounded-full bg-green-100 text-green-800 text-xs font-semibold border border-green-200 group-hover:bg-green-200 transition-colors cursor-pointer">Open Source</span>
                     </a>
                     <a href="#" class="text-gray-600 hover:text-primary font-medium transition-colors">API</a>
-                    <a href="https://github.com/yourusername/drawblock" target="_blank"
-                        class="text-gray-600 hover:text-primary font-medium transition-colors flex items-center gap-2">
-                        GitHub
-                    </a>
+                    <a href="https://github.com/yourusername/drawblock" target="_blank" class="text-gray-600 hover:text-primary font-medium transition-colors flex items-center gap-2">GitHub</a>
                 </div>
 
                 <div class="flex items-center gap-3">
-                    <button onclick="openModal()"
-                        class="bg-primary hover:bg-primary-600 text-white font-medium px-6 py-2.5 rounded-lg transition-all shadow-md hover:shadow-lg">Join waitlist</button>
+                    <button onclick="openModal()" class="bg-primary hover:bg-primary-600 text-white font-medium px-6 py-2.5 rounded-lg transition-all shadow-md hover:shadow-lg">Join waitlist</button>
                 </div>
             </div>
         </nav>
@@ -230,9 +234,7 @@
                                 d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                         </svg>
                         <div>
-                            <p class="font-medium text-gray-900 group-hover:text-primary transition-colors">User
-                                Login
-                                Process Flow</p>
+                            <p class="font-medium text-gray-900 group-hover:text-primary transition-colors">User Login Process Flow</p>
                             <p class="text-xs text-gray-500 mt-1">Click to generate diagram</p>
                         </div>
                     </div>
@@ -247,52 +249,15 @@
                                 d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                         </svg>
                         <div>
-                            <p class="font-medium text-gray-900 group-hover:text-primary transition-colors">Data
-                                Pipeline Analytics Dashboard</p>
-                            <p class="text-xs text-gray-500 mt-1">Click to generate diagram</p>
-                        </div>
-                    </div>
-                </button>
-                <button
-                    class="sample-btn group relative p-6 rounded-lg overflow-hidden border-2 border-gray-200 hover:border-primary/50 hover:shadow-lg transition-all text-left bg-white"
-                    data-text="API Request Response Validation">
-                    <div class="flex items-start gap-3">
-                        <svg class="w-6 h-6 flex-shrink-0 text-primary-400 group-hover:text-primary transition-colors"
-                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                        </svg>
-                        <div>
-                            <p class="font-medium text-gray-900 group-hover:text-primary transition-colors">API
-                                Request
-                                Response Validation</p>
-                            <p class="text-xs text-gray-500 mt-1">Click to generate diagram</p>
-                        </div>
-                    </div>
-                </button>
-                <button
-                    class="sample-btn group relative p-6 rounded-lg overflow-hidden border-2 border-gray-200 hover:border-primary/50 hover:shadow-lg transition-all text-left bg-white"
-                    data-text="Frontend Backend Database Integration">
-                    <div class="flex items-start gap-3">
-                        <svg class="w-6 h-6 flex-shrink-0 text-primary-400 group-hover:text-primary transition-colors"
-                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                        </svg>
-                        <div>
-                            <p class="font-medium text-gray-900 group-hover:text-primary transition-colors">
-                                Frontend
-                                Backend Database Integration</p>
+                            <p class="font-medium text-gray-900 group-hover:text-primary transition-colors">Data Pipeline Analytics Dashboard</p>
                             <p class="text-xs text-gray-500 mt-1">Click to generate diagram</p>
                         </div>
                     </div>
                 </button>
             </div>
             <div class="pt-8 text-sm text-gray-400 space-y-2">
-                <p>By using DrawBlock you agree to our <a href="#" class="text-primary hover:underline">Terms of
-                        Service</a>.</p>
-                <p>To learn more about how we handle your data, view our <a href="#"
-                        class="text-primary hover:underline">Privacy Policy</a>.</p>
+                <p>By using DrawBlock you agree to our <a href="#" class="text-primary hover:underline">Terms of Service</a>.</p>
+                <p>To learn more about how we handle your data, view our <a href="#" class="text-primary hover:underline">Privacy Policy</a>.</p>
             </div>
         </div>
     </section>
@@ -347,24 +312,51 @@
         const downloadBtn = document.getElementById('downloadBtn');
         const sampleBtns = document.querySelectorAll('.sample-btn');
         const modal = document.getElementById('waitlistModal');
+        const waitlistForm = document.getElementById('waitlistForm');
 
-        // POPUP FUNCTIONS
+        // Modal Logic
         function openModal() { modal.style.display = 'flex'; }
         function closeModal() { modal.style.display = 'none'; }
 
-        // TRIGGER POPUP ON WEBSITE ENTRY
+        // Trigger on website entry
         window.onload = openModal;
+
+        // Waitlist submission
+        waitlistForm.addEventListener('submit', e => {
+            e.preventDefault();
+            const submitBtn = document.getElementById('waitlistSubmitBtn');
+            submitBtn.innerText = "Joining...";
+            submitBtn.disabled = true;
+
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbyVSqYubvtcxbIJAtj2iWCoPLg07aUA4Rnza578uxV4FY7elNsvDt2FIlY_1RQt34d2mQ/exec';
+            
+            fetch(scriptURL, { 
+                method: 'POST', 
+                mode: 'no-cors',
+                body: new URLSearchParams(new FormData(waitlistForm)) 
+            })
+            .then(() => {
+                alert("You have been added to the waitlist!");
+                submitBtn.innerText = "Join waitlist";
+                submitBtn.disabled = false;
+                waitlistForm.reset();
+                closeModal();
+            })
+            .catch(error => {
+                console.error('Error!', error.message);
+                alert("Submission failed. Please check your connection.");
+                submitBtn.disabled = false;
+            });
+        });
 
         // Function to call the Python Backend
         async function callBackend(inputText) {
-            // UI: Show loading
             const originalText = generateBtn.innerText;
             generateBtn.innerText = "⏳ Generating...";
             generateBtn.disabled = true;
-            previewArea.classList.add('hidden'); // Hide old results
+            previewArea.classList.add('hidden'); 
 
             try {
-                // CALL THE PYTHON SERVER
                 const response = await fetch("/generate-diagram", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -374,44 +366,31 @@
                 const data = await response.json();
 
                 if (response.ok) {
-                    // SUCCESS: Update Image Source with URL from backend
                     diagramPreview.src = data.image_url;
-                    
-                    // Show Result Area
                     previewArea.classList.remove('hidden');
-                    
-                    // Scroll to result
                     previewArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-                    // TRIGGER POPUP AFTER GENERATION
+                    
+                    // Trigger popup after generation
                     setTimeout(openModal, 800);
                 } else {
-                    alert("Error: " + (data.detail || "Unknown error from server"));
+                    alert("Error: " + (data.detail || "Unknown error"));
                 }
 
             } catch (error) {
                 console.error(error);
-                alert("Could not connect to the backend server. Is it running?");
+                alert("Could not connect to the backend server.");
             } finally {
-                // Reset Button
                 generateBtn.innerText = originalText;
                 generateBtn.disabled = false;
             }
         }
 
-        // --- Event Listeners ---
-        
-        // 1. Generate Button Click
         generateBtn.addEventListener('click', () => {
             const text = textInput.value.trim();
-            if (!text) {
-                alert('Please enter some text to generate a diagram');
-                return;
-            }
+            if (!text) { alert('Please enter some text'); return; }
             callBackend(text);
         });
 
-        // 2. Download Button Click
         downloadBtn.addEventListener('click', () => {
             const link = document.createElement('a');
             link.download = 'block-diagram.png';
@@ -421,7 +400,6 @@
             document.body.removeChild(link);
         });
 
-        // 3. Sample Buttons Click
         sampleBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 const text = btn.getAttribute('data-text');
