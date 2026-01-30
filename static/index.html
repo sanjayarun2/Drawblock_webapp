@@ -314,36 +314,42 @@
         const modal = document.getElementById('waitlistModal');
         const waitlistForm = document.getElementById('waitlistForm');
 
-        // Modal Logic
-        function openModal() { modal.style.display = 'flex'; }
+        // Modal Logic - One time check
+        function openModal() { 
+            // Only open if they haven't joined yet
+            if(!localStorage.getItem('drawblock_joined')){
+                modal.style.display = 'flex'; 
+            }
+        }
         function closeModal() { modal.style.display = 'none'; }
 
         // Trigger on website entry
         window.onload = openModal;
 
-        // Waitlist submission - FIXED FOR PERFORMANCE AND CORS
+        // Waitlist submission - Speed and CORS fix
         waitlistForm.addEventListener('submit', e => {
             e.preventDefault();
             const submitBtn = document.getElementById('waitlistSubmitBtn');
-            const originalBtnText = submitBtn.innerText;
-            
             submitBtn.innerText = "Joining...";
             submitBtn.disabled = true;
 
             const scriptURL = 'https://script.google.com/macros/s/AKfycbyVSqYubvtcxbIJAtj2iWCoPLg07aUA4Rnza578uxV4FY7elNsvDt2FIlY_1RQt34d2mQ/exec';
             
-            // Fix: UI Response is immediate. Fetch happens in background.
-            // This bypasses the "no-cors" wait time which causes the 10-second lag.
+            // Immediate response logic:
+            // Fetch runs in background. We alert and close immediately to fix the lag.
             fetch(scriptURL, { 
                 method: 'POST', 
-                mode: 'no-cors', // Kept as requested, but logic optimized
+                mode: 'no-cors',
                 body: new URLSearchParams(new FormData(waitlistForm)) 
             });
 
-            // Immediate feedback to user (Fixes the "taking more time" issue)
+            // Set localStorage so it doesn't pop up again
+            localStorage.setItem('drawblock_joined', 'true');
+
+            // Quick timeout for visual polish before closing
             setTimeout(() => {
                 alert("You have been added to the waitlist!");
-                submitBtn.innerText = originalBtnText;
+                submitBtn.innerText = "Join waitlist";
                 submitBtn.disabled = false;
                 waitlistForm.reset();
                 closeModal();
@@ -371,8 +377,10 @@
                     previewArea.classList.remove('hidden');
                     previewArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     
-                    // Trigger popup after generation
-                    setTimeout(openModal, 800);
+                    // Only trigger popup if they haven't joined
+                    if(!localStorage.getItem('drawblock_joined')){
+                        setTimeout(openModal, 800);
+                    }
                 } else {
                     alert("Error: " + (data.detail || "Unknown error"));
                 }
