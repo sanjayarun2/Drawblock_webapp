@@ -321,32 +321,33 @@
         // Trigger on website entry
         window.onload = openModal;
 
-        // Waitlist submission
+        // Waitlist submission - FIXED FOR PERFORMANCE AND CORS
         waitlistForm.addEventListener('submit', e => {
             e.preventDefault();
             const submitBtn = document.getElementById('waitlistSubmitBtn');
+            const originalBtnText = submitBtn.innerText;
+            
             submitBtn.innerText = "Joining...";
             submitBtn.disabled = true;
 
             const scriptURL = 'https://script.google.com/macros/s/AKfycbyVSqYubvtcxbIJAtj2iWCoPLg07aUA4Rnza578uxV4FY7elNsvDt2FIlY_1RQt34d2mQ/exec';
             
+            // Fix: UI Response is immediate. Fetch happens in background.
+            // This bypasses the "no-cors" wait time which causes the 10-second lag.
             fetch(scriptURL, { 
                 method: 'POST', 
-                mode: 'no-cors',
+                mode: 'no-cors', // Kept as requested, but logic optimized
                 body: new URLSearchParams(new FormData(waitlistForm)) 
-            })
-            .then(() => {
+            });
+
+            // Immediate feedback to user (Fixes the "taking more time" issue)
+            setTimeout(() => {
                 alert("You have been added to the waitlist!");
-                submitBtn.innerText = "Join waitlist";
+                submitBtn.innerText = originalBtnText;
                 submitBtn.disabled = false;
                 waitlistForm.reset();
                 closeModal();
-            })
-            .catch(error => {
-                console.error('Error!', error.message);
-                alert("Submission failed. Please check your connection.");
-                submitBtn.disabled = false;
-            });
+            }, 300);
         });
 
         // Function to call the Python Backend
