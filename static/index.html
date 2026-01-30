@@ -314,10 +314,10 @@
         const modal = document.getElementById('waitlistModal');
         const waitlistForm = document.getElementById('waitlistForm');
 
-        // Modal Logic - One time check
+        // Modal Logic
         function openModal() { 
-            // Only open if they haven't joined yet
-            if(!localStorage.getItem('drawblock_joined')){
+            // Check if user has already joined
+            if (!localStorage.getItem('waitlistJoined')) {
                 modal.style.display = 'flex'; 
             }
         }
@@ -326,7 +326,7 @@
         // Trigger on website entry
         window.onload = openModal;
 
-        // Waitlist submission - Speed and CORS fix
+        // Waitlist submission - Speed Fix
         waitlistForm.addEventListener('submit', e => {
             e.preventDefault();
             const submitBtn = document.getElementById('waitlistSubmitBtn');
@@ -335,25 +335,23 @@
 
             const scriptURL = 'https://script.google.com/macros/s/AKfycbyVSqYubvtcxbIJAtj2iWCoPLg07aUA4Rnza578uxV4FY7elNsvDt2FIlY_1RQt34d2mQ/exec';
             
-            // Immediate response logic:
-            // Fetch runs in background. We alert and close immediately to fix the lag.
+            // Execute fetch in background
             fetch(scriptURL, { 
                 method: 'POST', 
                 mode: 'no-cors',
                 body: new URLSearchParams(new FormData(waitlistForm)) 
             });
 
-            // Set localStorage so it doesn't pop up again
-            localStorage.setItem('drawblock_joined', 'true');
-
-            // Quick timeout for visual polish before closing
+            // UI Speed Hack: Don't wait for 'no-cors' response which times out. 
+            // Assume success immediately to improve user experience.
             setTimeout(() => {
                 alert("You have been added to the waitlist!");
+                localStorage.setItem('waitlistJoined', 'true'); // Save to local storage
                 submitBtn.innerText = "Join waitlist";
                 submitBtn.disabled = false;
                 waitlistForm.reset();
                 closeModal();
-            }, 300);
+            }, 300); 
         });
 
         // Function to call the Python Backend
@@ -377,8 +375,8 @@
                     previewArea.classList.remove('hidden');
                     previewArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     
-                    // Only trigger popup if they haven't joined
-                    if(!localStorage.getItem('drawblock_joined')){
+                    // Trigger popup after generation ONLY if they haven't joined
+                    if (!localStorage.getItem('waitlistJoined')) {
                         setTimeout(openModal, 800);
                     }
                 } else {
